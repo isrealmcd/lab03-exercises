@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class FindDuplicates {
 
@@ -13,7 +15,7 @@ public class FindDuplicates {
 	//if no, record it on the secondary list and continue to next number
 	//if yes, add that number to the third list to be printed.
 	//after iterating through the whole list, print the contents of the third list
-	List<Integer> checkedNumbers = new ArrayList<>();
+/*	List<Integer> checkedNumbers = new ArrayList<>();
 	List<Integer> matches = new ArrayList<>();
 		for (int i = 0; i < l.size(); i++){
 			int current = l.get(i);
@@ -26,7 +28,27 @@ public class FindDuplicates {
 		}//inner loop
 	}//outer loop
 		return matches;
-    }
+*/
+//new code for dictionary or hash map approach
+	Map<Integer, Integer> numberCount = new HashMap<>();
+	List<Integer> matches = new ArrayList<>();
+
+	//now im iterating through the list and updating the count of each number
+	for (int number : l) {
+		if(numberCount.containsKey(number)){
+			numberCount.put(number, numberCount.get(number) + 1);
+		}else{
+			numberCount.put(number, 1);
+		}
+	}//end of loop
+	//Now im going to find the numbers that have been encountered more than one time
+	for (Map.Entry<Integer, Integer> entry : numberCount.entrySet()){
+		if(entry.getValue() > 1) {
+			matches.add(entry.getKey());
+		}
+	}
+	return matches;
+    }//end of method
 
     public static void main(String[] args) {
         // some test strings:
